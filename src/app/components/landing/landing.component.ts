@@ -1,7 +1,10 @@
+import { selectAppConfig } from './../../store/app.selectors';
+import { select, Store } from '@ngrx/store';
+import { AppState } from './../../store/app.state';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigService } from '../../service/app.config.service';
 import { AppConfig } from '../../api/appconfig';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-landing',
@@ -60,22 +63,23 @@ import { Router } from '@angular/router';
   `]
 })
 export class LandingComponent implements OnInit, OnDestroy {
-  
-  config: AppConfig;  
+
+  config: AppConfig;
+  config$: Observable<AppState> = this.store.pipe(select(selectAppConfig));
 
   subscription: Subscription;
 
-  constructor(public configService: ConfigService, public router: Router) { }
+  constructor(public router: Router, private store: Store) { }
 
   ngOnInit(): void {
-    this.config = this.configService.config;
-    this.subscription = this.configService.configUpdate$.subscribe(config => {
-      this.config = config;
-    });
+    this.subscription = this.config$.subscribe(appState => {
+      this.config = { ...appState.appConfig };
+
+    })
   }
 
   ngOnDestroy(): void {
-    if(this.subscription){
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }

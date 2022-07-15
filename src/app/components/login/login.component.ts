@@ -1,11 +1,14 @@
+import { selectAppConfig } from './../../store/app.selectors';
+import { select, Store } from '@ngrx/store';
+import { AppState } from './../../store/app.state';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigService } from '../../service/app.config.service';
 import { AppConfig } from '../../api/appconfig';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styles:[`
+  styles: [`
     :host ::ng-deep .p-password input {
     width: 100%;
     padding:1rem;
@@ -29,22 +32,22 @@ export class LoginComponent implements OnInit, OnDestroy {
   valCheck: string[] = ['remember'];
 
   password: string;
-  
+
   config: AppConfig;
-  
+  config$: Observable<AppState> = this.store.pipe(select(selectAppConfig));
   subscription: Subscription;
 
-  constructor(public configService: ConfigService){ }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.config = this.configService.config;
-    this.subscription = this.configService.configUpdate$.subscribe(config => {
-      this.config = config;
-    });
+    this.subscription = this.config$.subscribe(appState => {
+      this.config = { ...appState.appConfig };
+
+    })
   }
 
   ngOnDestroy(): void {
-    if(this.subscription){
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }

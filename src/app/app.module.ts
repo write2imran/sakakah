@@ -1,3 +1,4 @@
+import { appReducers } from './store/app.reducers';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -140,6 +141,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
     imports: [
@@ -230,6 +232,12 @@ import { AccessComponent } from './components/access/access.component';
         VirtualScrollerModule,
         AppCodeModule,
         StyleClassModule,
+        StoreModule.forRoot({ appReducers: appReducers }, {
+            runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true
+            }
+        }),
     ],
     declarations: [
         AppComponent,

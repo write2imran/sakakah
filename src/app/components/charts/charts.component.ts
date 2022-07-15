@@ -1,5 +1,8 @@
+import { selectAppConfig } from './../../store/app.selectors';
+import { select, Store } from '@ngrx/store';
+import { AppState } from './../../store/app.state';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { AppConfig } from 'src/app/api/appconfig';
 import { ConfigService } from 'src/app/service/app.config.service';
 
@@ -29,17 +32,22 @@ export class ChartsComponent implements OnInit, OnDestroy {
     radarOptions: any;
 
     config: AppConfig;
-
+    config$: Observable<AppState> = this.store.pipe(select(selectAppConfig));
     subscription: Subscription;
-    
-    constructor(public configService: ConfigService) { }
+
+    constructor(private store: Store) { }
 
     ngOnInit() {
-        this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
-            this.config = config;
+        // this.config = this.configService.config;
+        // this.subscription = this.configService.configUpdate$.subscribe(config => {
+        //     this.config = config;
+        //     this.updateChartOptions();
+        // });
+
+        this.subscription = this.config$.subscribe(appState => {
+            this.config = { ...appState.appConfig };
             this.updateChartOptions();
-        });
+        })
 
         this.lineData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -176,7 +184,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
                         color: '#495057'
                     },
                     grid: {
-                        color:  '#ebedef',
+                        color: '#ebedef',
                     }
                 },
                 y: {
@@ -184,7 +192,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
                         color: '#495057'
                     },
                     grid: {
-                        color:  '#ebedef',
+                        color: '#ebedef',
                     }
                 },
             }
@@ -204,7 +212,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
                         color: '#495057'
                     },
                     grid: {
-                        color:  '#ebedef',
+                        color: '#ebedef',
                     }
                 },
                 y: {
@@ -212,7 +220,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
                         color: '#495057'
                     },
                     grid: {
-                        color:  '#ebedef',
+                        color: '#ebedef',
                     }
                 },
             }
@@ -279,7 +287,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
                         color: '#ebedef'
                     },
                     grid: {
-                        color:  'rgba(160, 167, 181, .3)',
+                        color: 'rgba(160, 167, 181, .3)',
                     }
                 },
                 y: {
@@ -287,7 +295,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
                         color: '#ebedef'
                     },
                     grid: {
-                        color:  'rgba(160, 167, 181, .3)',
+                        color: 'rgba(160, 167, 181, .3)',
                     }
                 },
             }
@@ -307,7 +315,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
                         color: '#ebedef'
                     },
                     grid: {
-                        color:  'rgba(160, 167, 181, .3)',
+                        color: 'rgba(160, 167, 181, .3)',
                     }
                 },
                 y: {
@@ -315,7 +323,7 @@ export class ChartsComponent implements OnInit, OnDestroy {
                         color: '#ebedef'
                     },
                     grid: {
-                        color:  'rgba(160, 167, 181, .3)',
+                        color: 'rgba(160, 167, 181, .3)',
                     }
                 },
             }

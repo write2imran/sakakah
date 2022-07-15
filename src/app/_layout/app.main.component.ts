@@ -1,9 +1,13 @@
+import { select } from '@ngrx/store';
+import { AppState } from './../store/app.state';
 import { Component, AfterViewInit, OnDestroy, Renderer2, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AppComponent } from '../app.component';
 import { ConfigService } from '../service/app.config.service';
 import { AppConfig } from '../api/appconfig';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, EMPTY } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectAppConfig } from '../store/app.selectors';
 
 @Component({
     selector: 'app-main',
@@ -50,14 +54,19 @@ export class AppMainComponent implements AfterViewInit, OnDestroy, OnInit {
     configClick: boolean;
 
     config: AppConfig;
+    config$: Observable<AppState> = this.store.pipe(select(selectAppConfig));
 
     subscription: Subscription;
 
-    constructor(public renderer: Renderer2, public app: AppComponent, public configService: ConfigService) { }
+    constructor(public renderer: Renderer2, public app: AppComponent,
+        public configService: ConfigService,
+        private store: Store) { }
 
     ngOnInit() {
-        this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
+        this.subscription = this.config$.subscribe(appState => {
+            this.config = { ...appState.appConfig };
+        })
+
     }
 
     ngAfterViewInit() {

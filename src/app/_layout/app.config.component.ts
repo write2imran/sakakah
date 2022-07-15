@@ -1,6 +1,11 @@
+import { AppState } from './../store/app.state';
+import { selectAppConfig } from './../store/app.selectors';
+import { select } from '@ngrx/store';
+import { appConfigChange } from './../store/app.actions';
+import { Store } from '@ngrx/store';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { AppConfig } from '../api/appconfig';
 import { AppComponent } from '../app.component';
 import { AppMainComponent } from './app.main.component';
@@ -17,23 +22,18 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     scales: any[] = [12, 13, 14, 15, 16];
 
     config: AppConfig;
+    config$: Observable<AppState> = this.store.pipe(select(selectAppConfig));
 
     subscription: Subscription;
 
-    constructor(public app: AppComponent, public appMain: AppMainComponent, public configService: ConfigService, public primengConfig: PrimeNGConfig) { }
+    constructor(public app: AppComponent, public appMain: AppMainComponent,
+        public configService: ConfigService, public primengConfig: PrimeNGConfig,
+        private store: Store) { }
 
     ngOnInit() {
-        this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe(config => {
-            this.config = config;
-            this.scale = 14;
-
-            this.applyScale();
-        });
-
-        //this.configService.updateConfig({ ...this.config, ...{ theme: defaultTheme, dark: isDark } });
-        //this.changeTheme(environment.defaultTheme, environment.isDark);
-
+        this.subscription = this.config$.subscribe(appState => {
+            this.config = { ...appState.appConfig };
+        })
     }
 
     onConfigButtonClick(event) {
@@ -56,19 +56,19 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         document.documentElement.style.fontSize = this.scale + 'px';
     }
 
-    onRippleChange(ripple) {
+    onRippleChange(ripple: boolean) {
         this.primengConfig.ripple = ripple;
-        this.configService.updateConfig({ ...this.config, ...{ ripple } });
+        this.store.dispatch(appConfigChange({ appState: { appConfig: { ...this.config, ...{ ripple } } } }));
     }
 
     onInputStyleChange() {
-        this.configService.updateConfig(this.config);
+        this.store.dispatch(appConfigChange({ appState: { appConfig: { ...this.config } } }));
     }
 
     changeTheme(theme: string, dark: boolean) {
         let themeElement = document.getElementById('theme-css');
         themeElement.setAttribute('href', 'assets/theme/' + theme + '/theme.css');
-        this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
+        this.store.dispatch(appConfigChange({ appState: { appConfig: { ...this.config, ...{ theme, dark } } } }));
 
     }
 
