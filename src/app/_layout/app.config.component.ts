@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { AppConfig } from './api/appconfig';
-import { AppComponent } from './app.component';
+import { AppConfig } from '../api/appconfig';
+import { AppComponent } from '../app.component';
 import { AppMainComponent } from './app.main.component';
-import { ConfigService } from './service/app.config.service';
+import { ConfigService } from '../service/app.config.service';
 
 @Component({
     selector: 'app-config',
@@ -30,6 +30,10 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
             this.applyScale();
         });
+
+        //this.configService.updateConfig({ ...this.config, ...{ theme: defaultTheme, dark: isDark } });
+        //this.changeTheme(environment.defaultTheme, environment.isDark);
+
     }
 
     onConfigButtonClick(event) {
@@ -54,17 +58,18 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     onRippleChange(ripple) {
         this.primengConfig.ripple = ripple;
-        this.configService.updateConfig({...this.config, ...{ripple}});
+        this.configService.updateConfig({ ...this.config, ...{ ripple } });
     }
 
     onInputStyleChange() {
         this.configService.updateConfig(this.config);
     }
 
-    changeTheme(theme:string, dark:boolean){
+    changeTheme(theme: string, dark: boolean) {
         let themeElement = document.getElementById('theme-css');
         themeElement.setAttribute('href', 'assets/theme/' + theme + '/theme.css');
-        this.configService.updateConfig({...this.config, ...{theme, dark}});
+        this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
+
     }
 
     ngOnDestroy() {

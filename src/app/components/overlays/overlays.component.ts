@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Product } from '../../api/product';
-import { AppMainComponent } from 'src/app/app.main.component';
+import { AppMainComponent } from 'src/app/_layout/app.main.component';
 import { ProductService } from '../../service/productservice';
 
 @Component({
@@ -28,7 +28,7 @@ export class OverlaysComponent implements OnInit {
 
     visibleSidebar5;
 
-    constructor(private productService: ProductService, private confirmationService: ConfirmationService, private messageService: MessageService, public appMain: AppMainComponent) {}
+    constructor(private productService: ProductService, private confirmationService: ConfirmationService, private messageService: MessageService, public appMain: AppMainComponent) { }
 
     ngOnInit() {
         this.productService.getProductsSmall().then(products => this.products = products);
@@ -66,15 +66,15 @@ export class OverlaysComponent implements OnInit {
             message: 'Are you sure that you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.messageService.add({severity: 'info', summary: 'Confirmed', detail: 'You have accepted'});
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
             reject: () => {
-                this.messageService.add({severity: 'error', summary: 'Rejected', detail: 'You have rejected'});
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
             }
         });
     }
 
     formatCurrency(value) {
-        return value.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 }

@@ -88,17 +88,17 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { BlockViewer } from './components/blockviewer/blockviewer.component';
- 
+
 import { AppCodeModule } from './components/app-code/app.code.component';
 import { AppComponent } from './app.component';
-import { AppMainComponent } from './app.main.component';
-import { AppTopBarComponent } from './app.topbar.component';
-import { AppFooterComponent } from './app.footer.component';
-import { AppConfigComponent } from './app.config.component';
-import { AppMenuComponent } from './app.menu.component';
-import { AppMenuitemComponent } from './app.menuitem.component';
+import { AppMainComponent } from './_layout/app.main.component';
+import { AppTopBarComponent } from './_layout/app.topbar.component';
+import { AppFooterComponent } from './_layout/app.footer.component';
+import { AppConfigComponent } from './_layout/app.config.component';
+import { AppMenuComponent } from './_layout/app.menu.component';
+import { AppMenuitemComponent } from './_layout/app.menuitem.component';
 
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormLayoutComponent } from './components/formlayout/formlayout.component';
 import { FloatLabelComponent } from './components/floatlabel/floatlabel.component';
 import { InvalidStateComponent } from './components/invalidstate/invalidstate.component';
@@ -121,7 +121,7 @@ import { CrudComponent } from './components/crud/crud.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { IconsComponent } from './components/icons/icons.component';
 import { BlocksComponent } from './components/blocks/blocks.component';
-import { PaymentComponent} from './components/menus/payment.component';
+import { PaymentComponent } from './components/menus/payment.component';
 import { ConfirmationComponent } from './components/menus/confirmation.component';
 import { PersonalComponent } from './components/menus/personal.component';
 import { SeatComponent } from './components/menus/seat.component';
@@ -275,7 +275,7 @@ import { AccessComponent } from './components/access/access.component';
         AccessComponent,
     ],
     providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService, ConfigService
     ],

@@ -1,0 +1,100 @@
+<div class="grid">
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Parameter 1</span>
+                    <div class="text-900 font-medium text-xl">101</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">24 items </span>
+            <span class="text-500">since last update</span>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Parameter 2</span>
+                    <div class="text-900 font-medium text-xl">$21.50</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-map-marker text-orange-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">%52+ </span>
+            <span class="text-500">increase since last week</span>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Parameter 3</span>
+                    <div class="text-900 font-medium text-xl">280</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">520 </span>
+            <span class="text-500">newly registered</span>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Parameter 4</span>
+                    <div class="text-900 font-medium text-xl">152 Unread</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+                    [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-comment text-purple-500 text-xl"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">85 </span>
+            <span class="text-500">responded in two days</span>
+        </div>
+    </div>
+
+    <div class="col-12 xl:col-6">
+        <div class="card">
+            <h5>Focus Area 1</h5>
+        </div>
+        <div class="card">
+            <div class="flex justify-content-between align-items-center mb-5">
+                <h5>Focus Area 2</h5>
+                <div>
+                    <button pButton type="button" icon="pi pi-ellipsis-v"
+                        class="p-button-rounded p-button-text p-button-plain" (click)="menu.toggle($event)"></button>
+                    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 xl:col-6">
+        <div class="card">
+            <h5>Focus Area 3</h5>
+        </div>
+
+        <div class="card">
+            <div class="flex align-items-center justify-content-between mb-4">
+                <h5>Focus Area 4</h5>
+                <div>
+                    <button pButton type="button" icon="pi pi-ellipsis-v"
+                        class="p-button-rounded p-button-text p-button-plain" (click)="menu.toggle($event)"></button>
+                    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

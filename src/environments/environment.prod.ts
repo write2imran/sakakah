@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  defaultTheme: "lara-light-indigo",
+  isDark: false
 };
