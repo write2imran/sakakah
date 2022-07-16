@@ -142,6 +142,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
     imports: [
@@ -238,6 +240,7 @@ import { StoreModule } from '@ngrx/store';
                 strictActionImmutability: true
             }
         }),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     ],
     declarations: [
         AppComponent,
